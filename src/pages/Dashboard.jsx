@@ -1,63 +1,25 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-
-export default function BookingPage() {
-  const [form, setForm] = useState({
-    name: "", email: "", date: "", time: "", style: ""
-  });
-
-  const handleChange = (e) => {
-    setForm({...form, [e.target.name]: e.target.value});
-  };
-
+export default function Dashboard({ bookings }) {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gray-50 p-6">
 
-      <motion.div 
-        initial={{opacity:0, scale:0.95}}
-        animate={{opacity:1, scale:1}}
-        className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md"
-      >
+      <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
 
-        <h2 className="text-2xl font-bold text-center mb-6">
-          Book Nail Appointment 💅
-        </h2>
+      <div className="grid md:grid-cols-3 gap-4">
 
-        <div className="space-y-4">
+        {bookings.map((b, i) => (
+          <div key={i} className="bg-white p-4 rounded-xl shadow">
 
-          <input name="name" placeholder="Full Name"
-            onChange={handleChange}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"/>
+            <p className="font-bold text-lg">{b.name}</p>
+            <p className="text-gray-500">{b.date} • {b.time}</p>
 
-          <input name="email" placeholder="Email"
-            onChange={handleChange}
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-400"/>
+            <span className="inline-block mt-2 px-3 py-1 text-sm bg-pink-100 text-pink-600 rounded-full">
+              {b.style}
+            </span>
 
-          <input type="date" name="date"
-            onChange={handleChange}
-            className="w-full p-3 border rounded-lg"/>
+          </div>
+        ))}
 
-          <input type="time" name="time"
-            onChange={handleChange}
-            className="w-full p-3 border rounded-lg"/>
-
-          <select name="style"
-            onChange={handleChange}
-            className="w-full p-3 border rounded-lg">
-
-            <option value="">Select Style</option>
-            <option>Classic</option>
-            <option>Luxury</option>
-            <option>Art</option>
-          </select>
-
-          <button className="w-full bg-pink-500 hover:bg-pink-600 text-white p-3 rounded-lg transition">
-            Pay & Book
-          </button>
-
-        </div>
-
-      </motion.div>
+      </div>
     </div>
   );
 }
